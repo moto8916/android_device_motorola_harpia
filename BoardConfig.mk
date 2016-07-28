@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,27 +15,26 @@
 
 include device/motorola/msm8916-common/BoardConfigCommon.mk
 
--include vendor/motorola/osprey/BoardConfigVendor.mk
+-include vendor/motorola/harpia/BoardConfigVendor.mk
 
-DEVICE_PATH := device/motorola/osprey
+DEVICE_PATH := device/motorola/harpia
 
 # Asserts
-TARGET_OTA_ASSERT_DEVICE := osprey,osprey_umts,osprey_u2,osprey_ud2,osprey_uds,osprey_cdma,osprey_sprint,osprey_udstv
-TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
+TARGET_OTA_ASSERT_DEVICE := harpia,harpia_retail
 
 # Init
-TARGET_INIT_VENDOR_LIB := libinit_osprey
-TARGET_RECOVERY_DEVICE_MODULES := libinit_osprey
+TARGET_INIT_VENDOR_LIB := libinit_harpia
+TARGET_RECOVERY_DEVICE_MODULES := libinit_harpia
 
 # Kernel
-TARGET_KERNEL_CONFIG := osprey_defconfig
+#TARGET_KERNEL_CONFIG := harpia_defconfig
 
 # Partitions
-BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216     # 16384 * 1024 mmcblk0p31
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16879616 # 16484 * 1024 mmcblk0p32
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2432696320 # 2375680 * 1024 mmcblk0p41
-BOARD_PERSISTIMAGE_PARTITION_SIZE := 8388608   # 8192 * 1024 mmcblk0p29
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 4865261568 # 4751232 * 1024 mmcblk0p42
+#BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216     # 16384 * 1024 mmcblk0p31
+#BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16879616 # 16484 * 1024 mmcblk0p32
+#BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2432696320 # 2375680 * 1024 mmcblk0p41
+#BOARD_PERSISTIMAGE_PARTITION_SIZE := 8388608   # 8192 * 1024 mmcblk0p29
+#BOARD_USERDATAIMAGE_PARTITION_SIZE := 4865261568 # 4751232 * 1024 mmcblk0p42
 
 # Power
 TARGET_POWERHAL_HEADER_PATH := $(DEVICE_PATH)/power

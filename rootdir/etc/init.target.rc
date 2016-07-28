@@ -1,5 +1,5 @@
 # Copyright (c) 2009-2012, 2014, The Linux Foundation. All rights reserved.
-# Copyright (c) 2015-2016 The CyanogenMod Project
+# Copyright (c) 2016 The CyanogenMod Project
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,22 +26,15 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-on boot
-    # AK09912 driver parameter permissions
-    chown system compass /sys/class/compass/akm09912/accel
-    chmod 0660 /sys/class/compass/akm09912/accel
-    chown system compass /sys/class/compass/akm09912/delay_acc
-    chmod 0660 /sys/class/compass/akm09912/delay_acc
-    chown system compass /sys/class/compass/akm09912/enable_acc
-    chmod 0660 /sys/class/compass/akm09912/enable_acc
-    chown system compass /sys/class/compass/akm09912/delay_fusion
-    chmod 0660 /sys/class/compass/akm09912/delay_fusion
-    chown system compass /sys/class/compass/akm09912/enable_fusion
-    chmod 0660 /sys/class/compass/akm09912/enable_fusion
-    chown system compass /sys/class/compass/akm09912/delay_mag
-    chmod 0660 /sys/class/compass/akm09912/delay_mag
-    chown system compass /sys/class/compass/akm09912/enable_mag
-    chmod 0660 /sys/class/compass/akm09912/enable_mag
+on init
+    mkdir /oem 0550 root root
+on fs
+    wait /dev/block/bootdevice/by-name/oem
+    mount ext4 /dev/block/bootdevice/by-name/oem /oem ro nosuid nodev context=u:object_r:oemfs:s0
+
+    wait /dev/block/platform/msm_sdcc.1/by-name/hw
+    # This service is probably not needed
+    start oem-hw-sh
 
     # Switch to interactive and let PowerHAL configure it
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
@@ -63,14 +56,52 @@ on boot
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
 on post-fs-data
-    # AK09912 calibration file directory
-    mkdir /data/misc/akmd 0770 system compass
+    # Permissions for Sensor HAL
+    chown system system "/sys/class/sensors/bma25x-accel/enable"
+    chown system system "/sys/class/sensors/bma25x-accel/poll_delay"
+    chown system system "/sys/devices/virtual/bst/ACC/int_mode"
+    chown system system "/sys/devices/virtual/bst/ACC/flush"
+    chown system system "/sys/devices/virtual/bst/ACC/flatdown"
+    chown system system "/sys/kernel/range/als_enable"
+    chown system system "/sys/kernel/range/set_delay_ms"
+    chown system system "/sys/kernel/range/enable_sar"
+    chown system system "/sys/kernel/range/enable_stow"
+    chown system system "/sys/kernel/range/near"
+    chown system system "/sys/kernel/range/als_lux"
+    chown system system "/sys/kernel/range/flush"
 
-# Start AKM executable
-service akmd09912 /system/bin/akmd09912
-    class main
-    user compass
-    group compass misc input
+    chmod 0664 "/sys/class/sensors/bma25x-accel/enable"
+    chmod 0664 "/sys/class/sensors/bma25x-accel/poll_delay"
+    chmod 0664 "/sys/devices/virtual/bst/ACC/int_mode"
+    chmod 0664 "/sys/devices/virtual/bst/ACC/flush"
+    chmod 0664 "/sys/devices/virtual/bst/ACC/flatdown"
+    chmod 0664 "/sys/kernel/range/als_enable"
+    chmod 0664 "/sys/kernel/range/set_delay_ms"
+    chmod 0664 "/sys/kernel/range/enable_sar"
+    chmod 0664 "/sys/kernel/range/enable_stow"
+    chmod 0664 "/sys/kernel/range/near"
+    chmod 0664 "/sys/kernel/range/als_lux"
+    chmod 0664 "/sys/kernel/range/flush"
+
+    # Imager tuning data for camera subsystem
+    mkdir /data/misc/imager 0770 camera camera
+
+service oem-hw-sh /init.oem.hw.sh
+    seclabel u:r:init_hw:s0
+    class core
+    user root
+    oneshot
+    disabled
+
+# translate MMI property in order to keep the consistent with QCOM
+on property:ro.hw.dualsim=true
+    setprop persist.radio.multisim.config dsds
+
+on property:ro.hw.dualsim=false
+    setprop persist.radio.multisim.config ""
+
+#on property:ro.hw.ram=1GB
+#    setprop ro.config.low_ram true
 
 on property:sys.boot_completed=1
     setprop sys.io.scheduler bfq

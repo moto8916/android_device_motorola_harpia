@@ -18,7 +18,7 @@
 set -e
 
 # Required!
-export DEVICE=osprey
+export DEVICE=harpia
 export DEVICE_COMMON=msm8916-common
 export VENDOR=motorola
 

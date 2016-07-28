@@ -1,4 +1,4 @@
-# Proprietary files for osprey
+# Proprietary files for harpia
 
 # Audio
 etc/acdbdata/Bluetooth_cal.acdb
@@ -10,8 +10,11 @@ etc/acdbdata/Headset_cal.acdb
 etc/acdbdata/Speaker_cal.acdb
 
 # Camera
+# Is this app actually needed? Does it require anything else?
+-priv-app/ImagerTuning/ImagerTuning.apk
 bin/mm-qcamera-daemon
 lib/libadvalgcore.so
+lib/libarcsoft_beautyshot.so
 lib/libcamerabgproc-jni.so
 lib/libcamerabgprocservice.so
 lib/libjscore.so
@@ -20,11 +23,17 @@ lib/libmm-qcamera.so
 lib/libmmcamera_interface.so
 lib/libmmcamera_lux_standardization.so
 lib/libmmjpeg_interface.so
+lib/libmotimager_utils.so
+lib/libmpbase.so
 lib/libqomx_core.so
 lib/hw/camera.msm8916.so:lib/hw/camera.vendor.msm8916.so
-vendor/lib/libactuator_ak7345.so
-vendor/lib/libactuator_ak7345_camcorder.so
-vendor/lib/libactuator_ak7345_camera.so
+# Missing actuator for rear camera?
+vendor/lib/libactuator_f8v03t_dw9718s.so
+vendor/lib/libactuator_f8v03t_dw9718s_camcorder.so
+vendor/lib/libactuator_f8v03t_dw9718s_camera.so
+vendor/lib/libactuator_l8865aa0_dw9718s.so
+vendor/lib/libactuator_l8865aa0_dw9718s_camcorder.so
+vendor/lib/libactuator_l8865aa0_dw9718s_camera.so
 vendor/lib/libjpegdhw.so
 vendor/lib/libjpegehw.so
 vendor/lib/libmmcamera2_c2d_module.so
@@ -44,9 +53,8 @@ vendor/lib/libmmcamera_faceproc.so
 vendor/lib/libmmcamera_hdr_gb_lib.so
 vendor/lib/libmmcamera_hdr_lib.so
 vendor/lib/libmmcamera_imglib.so
-vendor/lib/libmmcamera_imx214.so
-vendor/lib/libmmcamera_s5k3m2.so
-vendor/lib/libmmcamera_s5k5e2.so
+vendor/lib/libmmcamera_ov5695.so
+vendor/lib/libmmcamera_ov8865_f8v03t.so
 vendor/lib/libmmcamera_tintless_algo.so
 vendor/lib/libmmcamera_tintless_bg_pca_algo.so
 vendor/lib/libmmcamera_wavelet_lib.so
@@ -57,76 +65,50 @@ vendor/lib/libqomx_jpegdec.so
 vendor/lib/libqomx_jpegenc.so
 
 # Chromatix
-vendor/lib/libchromatix_imx214_common.so
-vendor/lib/libchromatix_imx214_common_hdr.so
-vendor/lib/libchromatix_imx214_default_video.so
-vendor/lib/libchromatix_imx214_hfr_120fps.so
-vendor/lib/libchromatix_imx214_hfr_60fps.so
-vendor/lib/libchromatix_imx214_hfr_90fps.so
-vendor/lib/libchromatix_imx214_liveshot.so
-vendor/lib/libchromatix_imx214_liveshot_hdr.so
-vendor/lib/libchromatix_imx214_new_ircf_common.so
-vendor/lib/libchromatix_imx214_new_ircf_common_hdr.so
-vendor/lib/libchromatix_imx214_new_ircf_default_video.so
-vendor/lib/libchromatix_imx214_new_ircf_hfr_120fps.so
-vendor/lib/libchromatix_imx214_new_ircf_hfr_60fps.so
-vendor/lib/libchromatix_imx214_new_ircf_liveshot.so
-vendor/lib/libchromatix_imx214_new_ircf_liveshot_hdr.so
-vendor/lib/libchromatix_imx214_new_ircf_preview.so
-vendor/lib/libchromatix_imx214_new_ircf_preview_night.so
-vendor/lib/libchromatix_imx214_new_ircf_snapshot.so
-vendor/lib/libchromatix_imx214_new_ircf_snapshot_night.so
-vendor/lib/libchromatix_imx214_new_ircf_video_hdr.so
-vendor/lib/libchromatix_imx214_preview.so
-vendor/lib/libchromatix_imx214_snapshot.so
-vendor/lib/libchromatix_imx214_snapshot_hdr.so
-vendor/lib/libchromatix_imx214_video_hdr.so
-vendor/lib/libchromatix_s5k3m2_common.so
-vendor/lib/libchromatix_s5k3m2_common_hdr.so
-vendor/lib/libchromatix_s5k3m2_default_video.so
-vendor/lib/libchromatix_s5k3m2_hfr_120.so
-vendor/lib/libchromatix_s5k3m2_hfr_60.so
-vendor/lib/libchromatix_s5k3m2_hfr_90.so
-vendor/lib/libchromatix_s5k3m2_liveshot.so
-vendor/lib/libchromatix_s5k3m2_liveshot_hdr.so
-vendor/lib/libchromatix_s5k3m2_preview.so
-vendor/lib/libchromatix_s5k3m2_preview_night.so
-vendor/lib/libchromatix_s5k3m2_snapshot.so
-vendor/lib/libchromatix_s5k3m2_snapshot_hdr.so
-vendor/lib/libchromatix_s5k3m2_snapshot_night.so
-vendor/lib/libchromatix_s5k3m2_video_hdr.so
-vendor/lib/libchromatix_s5k5e2_common.so
-vendor/lib/libchromatix_s5k5e2_default_video.so
-vendor/lib/libchromatix_s5k5e2_front_GS_common.so
-vendor/lib/libchromatix_s5k5e2_front_GS_default_video.so
-vendor/lib/libchromatix_s5k5e2_front_GS_hfr_60fps.so
-vendor/lib/libchromatix_s5k5e2_front_GS_liveshot.so
-vendor/lib/libchromatix_s5k5e2_front_GS_preview.so
-vendor/lib/libchromatix_s5k5e2_front_GS_snapshot.so
-vendor/lib/libchromatix_s5k5e2_front_KT_common.so
-vendor/lib/libchromatix_s5k5e2_front_KT_default_video.so
-vendor/lib/libchromatix_s5k5e2_front_KT_hfr_60fps.so
-vendor/lib/libchromatix_s5k5e2_front_KT_liveshot.so
-vendor/lib/libchromatix_s5k5e2_front_KT_preview.so
-vendor/lib/libchromatix_s5k5e2_front_KT_preview_night.so
-vendor/lib/libchromatix_s5k5e2_front_KT_snapshot.so
-vendor/lib/libchromatix_s5k5e2_front_KT_snapshot_night.so
-vendor/lib/libchromatix_s5k5e2_hfr_60fps.so
-vendor/lib/libchromatix_s5k5e2_liveshot.so
-vendor/lib/libchromatix_s5k5e2_preview.so
-vendor/lib/libchromatix_s5k5e2_snapshot.so
+vendor/lib/libchromatix_ov5695_common.so
+vendor/lib/libchromatix_ov5695_default_video.so
+vendor/lib/libchromatix_ov5695_hfr_60fps.so
+vendor/lib/libchromatix_ov5695_hfr_90fps.so
+vendor/lib/libchromatix_ov5695_hfr_120fps.so
+vendor/lib/libchromatix_ov5695_liveshot.so
+vendor/lib/libchromatix_ov5695_ofilm_l5695f40_common.so
+vendor/lib/libchromatix_ov5695_ofilm_l5695f40_default_video.so
+vendor/lib/libchromatix_ov5695_ofilm_l5695f40_liveshot.so
+vendor/lib/libchromatix_ov5695_ofilm_l5695f40_preview.so
+vendor/lib/libchromatix_ov5695_ofilm_l5695f40_snapshot.so
+vendor/lib/libchromatix_ov5695_ofilm_l5695f40_video_hd.so
+vendor/lib/libchromatix_ov5695_ofilm_l5695f40_zsl.so
+vendor/lib/libchromatix_ov5695_preview.so
+vendor/lib/libchromatix_ov5695_snapshot.so
+vendor/lib/libchromatix_ov5695_video_hd.so
+vendor/lib/libchromatix_ov5695_zsl.so
+vendor/lib/libchromatix_ov8865_f8v03t_common.so
+vendor/lib/libchromatix_ov8865_f8v03t_default_video.so
+vendor/lib/libchromatix_ov8865_f8v03t_hfr_60fps.so
+vendor/lib/libchromatix_ov8865_f8v03t_hfr_90fps.so
+vendor/lib/libchromatix_ov8865_f8v03t_hfr_120fps.so
+vendor/lib/libchromatix_ov8865_f8v03t_liveshot.so
+vendor/lib/libchromatix_ov8865_f8v03t_preview.so
+vendor/lib/libchromatix_ov8865_f8v03t_snapshot.so
+vendor/lib/libchromatix_ov8865_f8v03t_video_hd.so
+vendor/lib/libchromatix_ov8865_f8v03t_zsl.so
+vendor/lib/libchromatix_ov8865_l8865aa0_common.so
+vendor/lib/libchromatix_ov8865_l8865aa0_default_video.so
+vendor/lib/libchromatix_ov8865_l8865aa0_hfr_60fps.so
+vendor/lib/libchromatix_ov8865_l8865aa0_hfr_90fps.so
+vendor/lib/libchromatix_ov8865_l8865aa0_hfr_120fps.so
+vendor/lib/libchromatix_ov8865_l8865aa0_liveshot.so
+vendor/lib/libchromatix_ov8865_l8865aa0_preview.so
+vendor/lib/libchromatix_ov8865_l8865aa0_snapshot.so
+vendor/lib/libchromatix_ov8865_l8865aa0_video_hd.so
+vendor/lib/libchromatix_ov8865_l8865aa0_zsl.so
 
 # Charger
 bin/charge_only_mode
 
 # Sensors
-bin/akmd09912
 lib/libmotocalibration.so
 lib/hw/sensors.msm8916.so
-
-# Touchscreen
-etc/firmware/synaptics-boe-s2726-15100905-1f711a-osprey.tdat
-etc/firmware/synaptics-inx-s2726br_t-15091801-1dc9a8-osprey.tdat
 
 # WCNSS
 etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
