@@ -26,16 +26,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-on init
-    mkdir /oem 0550 root root
 on fs
-    wait /dev/block/bootdevice/by-name/oem
-    mount ext4 /dev/block/bootdevice/by-name/oem /oem ro nosuid nodev context=u:object_r:oemfs:s0
-
-    wait /dev/block/platform/msm_sdcc.1/by-name/hw
-    # This service is probably not needed
-    start oem-hw-sh
-
     # Switch to interactive and let PowerHAL configure it
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
     chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse
@@ -85,13 +76,6 @@ on post-fs-data
 
     # Imager tuning data for camera subsystem
     mkdir /data/misc/imager 0770 camera camera
-
-service oem-hw-sh /init.oem.hw.sh
-    seclabel u:r:init_hw:s0
-    class core
-    user root
-    oneshot
-    disabled
 
 # translate MMI property in order to keep the consistent with QCOM
 on property:ro.hw.dualsim=true
