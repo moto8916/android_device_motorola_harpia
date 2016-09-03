@@ -35,6 +35,19 @@
 #include "util.h"
 
 #define ISMATCH(a,b)    (!strncmp(a,b,PROP_VALUE_MAX))
+
+bool is2GB()
+{
+    int ram_size;
+    FILE *fp;
+
+    fp = fopen("/sys/ram/size", "r");
+    fscanf(fp, "%d", &ram_size);
+    pclose(fp);
+
+    return ram_size > 1024;
+}
+
 void vendor_load_properties()
 {
     char platform[PROP_VALUE_MAX];
@@ -46,6 +59,22 @@ void vendor_load_properties()
     rc = property_get("ro.board.platform", platform);
     if (!rc || !ISMATCH(platform, ANDROID_TARGET))
         return;
+
+    if (is2GB()) {
+        property_set("dalvik.vm.heapstartsize", "8m");
+        property_set("dalvik.vm.heapgrowthlimit", "192m");
+        property_set("dalvik.vm.heapsize", "512m");
+        property_set("dalvik.vm.heaptargetutilization", "0.75");
+        property_set("dalvik.vm.heapminfree", "512k");
+        property_set("dalvik.vm.heapmaxfree", "8m");
+    } else {
+        property_set("dalvik.vm.heapstartsize", "8m");
+        property_set("dalvik.vm.heapgrowthlimit", "96m");
+        property_set("dalvik.vm.heapsize", "256m");
+        property_set("dalvik.vm.heaptargetutilization", "0.75");
+        property_set("dalvik.vm.heapminfree", "2m");
+        property_set("dalvik.vm.heapmaxfree", "8m");
+	}
 
     property_get("ro.boot.hardware.sku", sku);
 

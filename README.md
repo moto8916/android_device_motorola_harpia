@@ -1,8 +1,8 @@
 Unified Device Tree for Moto G Play (harpia)
 ===========================================
 
-The Motorola Moto G 2015 (codenamed _"harpia"_) is a mid-range smartphone from Motorola mobility.
-It was announced on May 2016.
+The Motorola Moto G Play (codenamed _"harpia"_) is a mid-range smartphone from Motorola Mobility.
+It was announced in May 2016.
 
 Basic   | Spec Sheet
 -------:|:-------------------------
