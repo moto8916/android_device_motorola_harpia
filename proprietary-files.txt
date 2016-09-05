@@ -10,8 +10,6 @@ etc/acdbdata/Headset_cal.acdb
 etc/acdbdata/Speaker_cal.acdb
 
 # Camera
-# Is this app actually needed? Does it require anything else?
--priv-app/ImagerTuning/ImagerTuning.apk
 bin/mm-qcamera-daemon
 lib/libadvalgcore.so
 lib/libarcsoft_beautyshot.so
@@ -27,7 +25,6 @@ lib/libmotimager_utils.so
 lib/libmpbase.so
 lib/libqomx_core.so
 lib/hw/camera.msm8916.so:lib/hw/camera.vendor.msm8916.so
-# Missing actuator for rear camera?
 vendor/lib/libactuator_f8v03t_dw9718s.so
 vendor/lib/libactuator_f8v03t_dw9718s_camcorder.so
 vendor/lib/libactuator_f8v03t_dw9718s_camera.so
@@ -55,6 +52,8 @@ vendor/lib/libmmcamera_hdr_lib.so
 vendor/lib/libmmcamera_imglib.so
 vendor/lib/libmmcamera_ov5695.so
 vendor/lib/libmmcamera_ov8865_f8v03t.so
+vendor/lib/libmmcamera_sunny_d5v16b_eeprom.so
+vendor/lib/libmmcamera_sunny_f8v03t_eeprom.so
 vendor/lib/libmmcamera_tintless_algo.so
 vendor/lib/libmmcamera_tintless_bg_pca_algo.so
 vendor/lib/libmmcamera_wavelet_lib.so
