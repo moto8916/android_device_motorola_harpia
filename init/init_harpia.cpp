@@ -82,6 +82,10 @@ void vendor_load_properties()
 
     if (ISMATCH(sku, "XT1601")) {
         /* XT1601 */
+    } else if (ISMATCH(sku, "XT1602")) {
+        /* XT1602 */
+    } else if (ISMATCH(sku, "XT1604")) {
+        /* XT1604 - HAS NFC! */
     } else if (ISMATCH(sku, "XT1607")) {
         /* XT1607 */
     } else if (ISMATCH(sku, "XT1609")) {
