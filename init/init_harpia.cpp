@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2014, The Linux Foundation. All rights reserved.
+   Copyright (c) 2016, The CyanogenMod Project. All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -33,27 +33,23 @@
 #include "property_service.h"
 #include "log.h"
 #include "util.h"
+#include <sys/sysinfo.h>
 
 #define ISMATCH(a,b)    (!strncmp(a,b,PROP_VALUE_MAX))
 
 bool is2GB()
 {
-    int ram_size;
-    FILE *fp;
-
-    fp = fopen("/sys/ram/size", "r");
-    fscanf(fp, "%d", &ram_size);
-    pclose(fp);
-
-    return ram_size > 1024;
+    struct sysinfo sys;
+    sysinfo(&sys);
+    return sys.totalram > 1024ull * 1024 * 1024;
 }
 
 void vendor_load_properties()
 {
+    bool msim = false;
+    char customerid[PROP_VALUE_MAX] = {0};
     char platform[PROP_VALUE_MAX];
     char sku[PROP_VALUE_MAX];
-    char device[PROP_VALUE_MAX];
-    char devicename[PROP_VALUE_MAX];
     int rc;
 
     rc = property_get("ro.board.platform", platform);
@@ -76,19 +72,41 @@ void vendor_load_properties()
         property_set("dalvik.vm.heapmaxfree", "8m");
 	}
 
-    property_get("ro.boot.hardware.sku", sku);
-
     property_set("ro.telephony.default_network", "10");
 
-    if (ISMATCH(sku, "XT1601")) {
+    property_get("ro.boot.hardware.sku", sku);
+    if (ISMATCH(sku, "XT1600")) {
+        /* XT1600 */
+        msim = true;
+        sprintf(customerid, "retail");
+    } else if (ISMATCH(sku, "XT1601")) {
         /* XT1601 */
+        sprintf(customerid, "retail");
+        property_set("persist.radio.process_sups_ind", "1");
+    } else if (ISMATCH(sku, "XT1602")) {
+        /* XT1602 */
+        msim = true;
+    } else if (ISMATCH(sku, "XT1604")) {
+        /* XT1604 - HAS NFC! */
     } else if (ISMATCH(sku, "XT1607")) {
         /* XT1607 */
     } else if (ISMATCH(sku, "XT1609")) {
         /* XT1609 */
     }
 
-    property_get("ro.product.device", device);
-    strlcpy(devicename, device, sizeof(devicename));
-    INFO("Found sku id: %s setting build properties for %s device\n", sku, devicename);
+    if (msim) {
+        property_set("persist.radio.force_get_pref", "1");
+        property_set("persist.radio.multisim.config", "dsds");
+        property_set("ro.telephony.ril.config", "simactivation");
+    }
+
+    property_set("ro.product.device", "harpia");
+    property_set("ro.build.product", "harpia");
+    property_set("ro.build.description",
+            "harpia-user 6.0.1 MPI24.241-15.3 3 release-keys");
+    property_set("ro.build.fingerprint",
+            "motorola/harpia/harpia:6.0.1/MPI24.241-15.3/3:user/release-keys");
+    property_set("ro.mot.build.customerid", customerid);
+
+    INFO("Found sku id: %s setting build properties for harpia device\n", sku);
 }

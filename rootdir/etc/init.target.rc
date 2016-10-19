@@ -77,13 +77,6 @@ on post-fs-data
     # Imager tuning data for camera subsystem
     mkdir /data/misc/imager 0770 camera camera
 
-# translate MMI property in order to keep the consistent with QCOM
-on property:ro.hw.dualsim=true
-    setprop persist.radio.multisim.config dsds
-
-on property:ro.hw.dualsim=false
-    setprop persist.radio.multisim.config ""
-
 #on property:ro.hw.ram=1GB
 #    setprop ro.config.low_ram true
 
