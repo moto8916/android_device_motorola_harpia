@@ -27,6 +27,9 @@
 #
 
 on fs
+    # load module hashes for prebuilt kernel
+    copy /module_hashes /sys/kernel/module_whitelist
+
     # Switch to interactive and let PowerHAL configure it
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
     chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse

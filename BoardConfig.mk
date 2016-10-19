@@ -13,6 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+TARGET_PREBUILT_KERNEL := device/motorola/harpia/zImage
+TARGET_PREBUILT_DTB    := device/motorola/harpia/dt.img
+
 include device/motorola/msm8916-common/BoardConfigCommon.mk
 
 -include vendor/motorola/harpia/BoardConfigVendor.mk
