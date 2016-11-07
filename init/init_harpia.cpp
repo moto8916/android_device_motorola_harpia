@@ -47,7 +47,7 @@ bool is2GB()
 void vendor_load_properties()
 {
     bool msim = false;
-    char customerid[PROP_VALUE_MAX] = {0};
+    const char *customerid = NULL;
     char platform[PROP_VALUE_MAX];
     char sku[PROP_VALUE_MAX];
     int rc;
@@ -78,10 +78,10 @@ void vendor_load_properties()
     if (ISMATCH(sku, "XT1600")) {
         /* XT1600 */
         msim = true;
-        sprintf(customerid, "retail");
+        customerid = "retail";
     } else if (ISMATCH(sku, "XT1601")) {
         /* XT1601 */
-        sprintf(customerid, "retail");
+        customerid = "retail";
         property_set("persist.radio.process_sups_ind", "1");
     } else if (ISMATCH(sku, "XT1602")) {
         /* XT1602 */
@@ -106,7 +106,10 @@ void vendor_load_properties()
             "harpia-user 6.0.1 MPI24.241-15.3 3 release-keys");
     property_set("ro.build.fingerprint",
             "motorola/harpia/harpia:6.0.1/MPI24.241-15.3/3:user/release-keys");
-    property_set("ro.mot.build.customerid", customerid);
+
+    if (customerid) {
+        property_set("ro.mot.build.customerid", customerid);
+    }
 
     INFO("Found sku id: %s setting build properties for harpia device\n", sku);
 }
