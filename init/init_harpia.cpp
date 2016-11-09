@@ -46,15 +46,24 @@ bool is2GB()
 
 void vendor_load_properties()
 {
-    bool msim = false;
     const char *customerid = NULL;
     char platform[PROP_VALUE_MAX];
+    char dualsim[PROP_VALUE_MAX];
     char sku[PROP_VALUE_MAX];
+    bool msim = false;
     int rc;
 
     rc = property_get("ro.board.platform", platform);
     if (!rc || !ISMATCH(platform, ANDROID_TARGET))
         return;
+
+    rc = property_get("ro.boot.dualsim", dualsim);
+    if (rc && ISMATCH(dualsim, "true")) {
+        property_set("persist.radio.force_get_pref", "1");
+        property_set("persist.radio.multisim.config", "dsds");
+        property_set("ro.telephony.ril.config", "simactivation");
+        msim = true;
+    }
 
     if (is2GB()) {
         property_set("dalvik.vm.heapstartsize", "8m");
@@ -77,27 +86,28 @@ void vendor_load_properties()
     property_get("ro.boot.hardware.sku", sku);
     if (ISMATCH(sku, "XT1600")) {
         /* XT1600 */
-        msim = true;
         customerid = "retail";
     } else if (ISMATCH(sku, "XT1601")) {
         /* XT1601 */
         customerid = "retail";
         property_set("persist.radio.process_sups_ind", "1");
+        if (msim) {
+            property_set("persist.radio.pb.max.match", "8");
+            property_set("persist.radio.pb.min.match", "8");
+        }
     } else if (ISMATCH(sku, "XT1602")) {
         /* XT1602 */
-        msim = true;
+    } else if (ISMATCH(sku, "XT1603")) {
+        /* XT1603 */
+        customerid = "retail";
+        property_set("persist.radio.pb.max.match", "10");
+        property_set("persist.radio.pb.min.match", "7");
     } else if (ISMATCH(sku, "XT1604")) {
         /* XT1604 - HAS NFC! */
     } else if (ISMATCH(sku, "XT1607")) {
         /* XT1607 */
     } else if (ISMATCH(sku, "XT1609")) {
         /* XT1609 */
-    }
-
-    if (msim) {
-        property_set("persist.radio.force_get_pref", "1");
-        property_set("persist.radio.multisim.config", "dsds");
-        property_set("ro.telephony.ril.config", "simactivation");
     }
 
     property_set("ro.product.device", "harpia");
