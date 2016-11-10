@@ -49,6 +49,8 @@ void vendor_load_properties()
     const char *customerid = NULL;
     char platform[PROP_VALUE_MAX];
     char dualsim[PROP_VALUE_MAX];
+    char radio[PROP_VALUE_MAX];
+    char bootdevice[PROP_VALUE_MAX];
     char sku[PROP_VALUE_MAX];
     bool msim = false;
     int rc;
@@ -62,7 +64,18 @@ void vendor_load_properties()
         property_set("persist.radio.force_get_pref", "1");
         property_set("persist.radio.multisim.config", "dsds");
         property_set("ro.telephony.ril.config", "simactivation");
+        property_set("ro.hw.dualsim", "true");
         msim = true;
+    }
+
+    rc = property_get("ro.boot.device", bootdevice);
+    if (rc) {
+        property_set("ro.hw.device", bootdevice);
+    }
+
+    rc = property_get("ro.boot.radio", radio);
+    if (rc) {
+        property_set("ro.hw.radio", radio);
     }
 
     if (is2GB()) {
@@ -79,7 +92,7 @@ void vendor_load_properties()
         property_set("dalvik.vm.heaptargetutilization", "0.75");
         property_set("dalvik.vm.heapminfree", "2m");
         property_set("dalvik.vm.heapmaxfree", "8m");
-	}
+    }
 
     property_set("ro.telephony.default_network", "10");
 
