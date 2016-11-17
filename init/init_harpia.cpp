@@ -63,7 +63,6 @@ void vendor_load_properties()
     if (rc && ISMATCH(dualsim, "true")) {
         property_set("persist.radio.force_get_pref", "1");
         property_set("persist.radio.multisim.config", "dsds");
-        property_set("ro.telephony.ril.config", "simactivation");
         property_set("ro.hw.dualsim", "true");
         msim = true;
     }
