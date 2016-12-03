@@ -19,4 +19,4 @@ Camera  | 8MP, autofocus, flash LED
 
 Copyright 2016 - The CyanogenMod Project.
 
-![Moto G Play](http://ecx.images-amazon.com/images/I/71DZLRD6l2L._SL1500_.jpg "Moto G Play")
+![Moto G Play](http://i.imgur.com/WGKA5LSl.jpg "Moto G Play")
