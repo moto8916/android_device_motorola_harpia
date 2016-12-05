@@ -102,9 +102,6 @@ vendor/lib/libchromatix_ov8865_l8865aa0_snapshot.so
 vendor/lib/libchromatix_ov8865_l8865aa0_video_hd.so
 vendor/lib/libchromatix_ov8865_l8865aa0_zsl.so
 
-# Charger
-bin/charge_only_mode
-
 # Sensors
 lib/libmotocalibration.so
 lib/hw/sensors.msm8916.so
