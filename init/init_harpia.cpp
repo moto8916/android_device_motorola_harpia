@@ -1,5 +1,6 @@
 /*
    Copyright (c) 2016, The CyanogenMod Project. All rights reserved.
+   Copyright (c) 2016, The LineageOS Project. All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -35,8 +36,6 @@
 #include "util.h"
 #include <sys/sysinfo.h>
 
-#define ISMATCH(a,b)    (!strncmp(a,b,PROP_VALUE_MAX))
-
 bool is2GB()
 {
     struct sysinfo sys;
@@ -47,35 +46,31 @@ bool is2GB()
 void vendor_load_properties()
 {
     const char *customerid = NULL;
-    char platform[PROP_VALUE_MAX];
-    char dualsim[PROP_VALUE_MAX];
-    char radio[PROP_VALUE_MAX];
-    char bootdevice[PROP_VALUE_MAX];
-    char sku[PROP_VALUE_MAX];
+    std::string platform;
+    std::string dualsim;
+    std::string radio;
+    std::string bootdevice;
+    std::string sku;
     bool msim = false;
     int rc;
 
-    rc = property_get("ro.board.platform", platform);
-    if (!rc || !ISMATCH(platform, ANDROID_TARGET))
+    platform = property_get("ro.board.platform");
+    if (platform != ANDROID_TARGET)
         return;
 
-    rc = property_get("ro.boot.dualsim", dualsim);
-    if (rc && ISMATCH(dualsim, "true")) {
+    dualsim = property_get("ro.boot.dualsim");
+    if (dualsim == "true") {
         property_set("persist.radio.force_get_pref", "1");
         property_set("persist.radio.multisim.config", "dsds");
         property_set("ro.hw.dualsim", "true");
         msim = true;
     }
 
-    rc = property_get("ro.boot.device", bootdevice);
-    if (rc) {
-        property_set("ro.hw.device", bootdevice);
-    }
+    bootdevice = property_get("ro.boot.device");
+    property_set("ro.hw.device", bootdevice.c_str());
 
-    rc = property_get("ro.boot.radio", radio);
-    if (rc) {
-        property_set("ro.hw.radio", radio);
-    }
+    radio = property_get("ro.boot.radio");
+    property_set("ro.hw.radio", radio.c_str());
 
     if (is2GB()) {
         property_set("dalvik.vm.heapstartsize", "8m");
@@ -95,11 +90,11 @@ void vendor_load_properties()
 
     property_set("ro.telephony.default_network", "10");
 
-    property_get("ro.boot.hardware.sku", sku);
-    if (ISMATCH(sku, "XT1600")) {
+    sku = property_get("ro.boot.hardware.sku");
+    if (sku == "XT1600") {
         /* XT1600 */
         customerid = "retail";
-    } else if (ISMATCH(sku, "XT1601")) {
+    } else if (sku == "XT1601") {
         /* XT1601 */
         customerid = "retail";
         property_set("persist.radio.process_sups_ind", "1");
@@ -107,18 +102,18 @@ void vendor_load_properties()
             property_set("persist.radio.pb.max.match", "8");
             property_set("persist.radio.pb.min.match", "8");
         }
-    } else if (ISMATCH(sku, "XT1602")) {
+    } else if (sku == "XT1602") {
         /* XT1602 */
-    } else if (ISMATCH(sku, "XT1603")) {
+    } else if (sku == "XT1603") {
         /* XT1603 */
         customerid = "retail";
         property_set("persist.radio.pb.max.match", "10");
         property_set("persist.radio.pb.min.match", "7");
-    } else if (ISMATCH(sku, "XT1604")) {
+    } else if (sku == "XT1604") {
         /* XT1604 - HAS NFC! */
-    } else if (ISMATCH(sku, "XT1607")) {
+    } else if (sku == "XT1607") {
         /* XT1607 */
-    } else if (ISMATCH(sku, "XT1609")) {
+    } else if (sku == "XT1609") {
         /* XT1609 */
     }
 
@@ -133,5 +128,5 @@ void vendor_load_properties()
         property_set("ro.mot.build.customerid", customerid);
     }
 
-    INFO("Found sku id: %s setting build properties for harpia device\n", sku);
+    INFO("Found sku id: %s setting build properties for harpia device\n", sku.c_str());
 }
