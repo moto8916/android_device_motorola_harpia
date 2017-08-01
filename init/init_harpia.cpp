@@ -130,13 +130,6 @@ void vendor_load_properties()
         /* XT1609 */
     }
 
-    property_override("ro.product.device", "harpia");
-    property_override("ro.build.product", "harpia");
-    property_override("ro.build.description",
-            "harpia-user 6.0.1 MPI24.241-15.3 3 release-keys");
-    property_override("ro.build.fingerprint",
-            "motorola/harpia/harpia:6.0.1/MPI24.241-15.3/3:user/release-keys");
-
     if (customerid) {
         property_set("ro.mot.build.customerid", customerid);
     }

@@ -1,10 +1,5 @@
 # system.prop for harpia
 
-ro.product.model=Moto G Play
-ro.product.device=harpia
-ro.build.product=harpia
-ro.build.thumbprint=6.0.1/MPI24.241-15.3/3:user/release-keys
-
 # Audio
 persist.audio.fluence.mode=endfire
 persist.audio.fluence.voicecall=true
