@@ -13,7 +13,6 @@ etc/acdbdata/Speaker_cal.acdb
 bin/mm-qcamera-daemon
 lib/libadvalgcore.so
 lib/libarcsoft_beautyshot.so
-lib/libcamerabgproc-jni.so
 lib/libcamerabgprocservice.so
 lib/libjscore.so
 lib/libjustshoot.so
@@ -32,6 +31,7 @@ vendor/lib/libactuator_f8v03t_dw9718s_camera.so
 vendor/lib/libactuator_l8865aa0_dw9718s.so
 vendor/lib/libactuator_l8865aa0_dw9718s_camcorder.so
 vendor/lib/libactuator_l8865aa0_dw9718s_camera.so
+vendor/lib/libcamerabgproc-jni.so
 vendor/lib/libjpegdhw.so
 vendor/lib/libjpegehw.so
 vendor/lib/libmmcamera2_c2d_module.so
