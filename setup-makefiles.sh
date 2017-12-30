@@ -21,5 +21,6 @@ set -e
 export DEVICE=harpia
 export DEVICE_COMMON=msm8916-common
 export VENDOR=motorola
+export DEVICE_BRINGUP_YEAR=2016
 
 ./../../$VENDOR/$DEVICE_COMMON/setup-makefiles.sh $@
