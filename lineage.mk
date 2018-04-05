@@ -1,5 +1,5 @@
 # Copyright (C) 2016 The CyanogenMod Project
-#               2017 The LineageOS Project
+#               2017-2019 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,5 +28,6 @@ PRODUCT_MANUFACTURER := Motorola
 PRODUCT_RELEASE_NAME := harpia
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT=motorola/harpia/harpia:6.0.1/MPI24.241-15.3/3:user/release-keys \
-    PRIVATE_BUILD_DESC="harpia-user 6.0.1 MPI24.241-15.3 3 release-keys" \
+    PRIVATE_BUILD_DESC="harpia-user 6.0.1 MPI24.241-15.3 3 release-keys"
+
+BUILD_FINGERPRINT=motorola/harpia/harpia:6.0.1/MPI24.241-15.3/3:user/release-keys
