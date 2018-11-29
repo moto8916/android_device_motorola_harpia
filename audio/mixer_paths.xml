@@ -652,9 +652,11 @@
 		<ctl name="DEC2 MUX" value="ADC1" />
 		<ctl name="MI2S_TX Channels" value="Two" />
 		<ctl name="ADC2 MUX" value="INP3" />
-		<ctl name="ADC1 Volume" value="4" />
+		<ctl name="ADC1 Volume" value="7" />
 		<ctl name="ADC2 Volume" value="0" />
-		<ctl name="ADC3 Volume" value="4" />
+		<ctl name="ADC3 Volume" value="7" />
+		<ctl name="DEC1 Volume" value="100" />
+		<ctl name="DEC2 Volume" value="100" />
 	</path>
 
 	<path name="voice-dmic-ef-tmus">

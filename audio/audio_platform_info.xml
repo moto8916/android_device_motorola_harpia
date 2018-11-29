@@ -40,4 +40,8 @@
         <device name="SND_DEVICE_IN_SPEAKER_MIC_AEC" acdb_id="114"/>
         <device name="SND_DEVICE_IN_SPEAKER_MIC_NS" acdb_id="114"/>
     </acdb_ids>
+
+    <device_names>
+        <device name="SND_DEVICE_IN_HANDSET_STEREO_DMIC" alias="camcorder-mic-bf" />
+    </device_names>
 </audio_platform_info>
