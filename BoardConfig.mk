@@ -22,10 +22,6 @@ DEVICE_PATH := device/motorola/harpia
 # Asserts
 TARGET_OTA_ASSERT_DEVICE := harpia,harpia_retail
 
-# Init
-TARGET_INIT_VENDOR_LIB := libinit_harpia
-TARGET_RECOVERY_DEVICE_MODULES := libinit_harpia
-
 # Kernel
 TARGET_KERNEL_CONFIG := harpia_defconfig
 
