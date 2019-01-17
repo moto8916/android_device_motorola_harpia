@@ -26,6 +26,9 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+on early-init
+    start harpia-config-sh
+
 on fs
     # Switch to interactive and let PowerHAL configure it
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
@@ -77,8 +80,11 @@ on post-fs-data
     # Imager tuning data for camera subsystem
     mkdir /data/misc/imager 0770 camera camera
 
-#on property:ro.hw.ram=1GB
-#    setprop ro.config.low_ram true
+service harpia-config-sh /vendor/bin/init.device.config.sh
+    class core
+    user root
+    oneshot
+    disabled
 
 on property:sys.boot_completed=1
     setprop sys.io.scheduler bfq
@@ -103,3 +109,15 @@ on property:sys.boot_completed=1
 
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 49152
+
+on property:ro.device.dualsim=true
+    setprop persist.radio.force_get_pref 1
+    setprop persist.radio.multisim.config dsds
+    setprop ro.hw.dualsim true
+
+on property:ro.device.dualsim=false
+    setprop persist.radio.multisim.config ""
+    setprop ro.hw.dualsim false
+
+on property:ro.boot.hardware.sku=XT1601
+    setprop persist.radio.process_sups_ind 1
